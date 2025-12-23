@@ -1,0 +1,5 @@
+menu "AESD customizations"
+
+source "$BR2_EXTERNAL_AESD_PATH/package/aesd-assignments/Config.in"
+
+endmenu

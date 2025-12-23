@@ -1,0 +1,4 @@
+name: project_base
+desc: External tree for AESD assignments
+version: 1.0
+external.desc
