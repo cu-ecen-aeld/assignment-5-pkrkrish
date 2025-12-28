@@ -19,7 +19,7 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 
 	# 2. Set strict permissions
 	chmod 0700 $(TARGET_DIR)/root/.ssh
-	chmod 0700 $(TARGET_DIR)/etc/dropbear
+	#chmod 0700 $(TARGET_DIR)/etc/dropbear
 
 	# 3. Install binaries and scripts
 	# Added 'finder-app/' prefix to match where they are located in your A3 repo
