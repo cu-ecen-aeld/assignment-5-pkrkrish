@@ -18,26 +18,23 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 	mkdir -p $(TARGET_DIR)/root/.ssh
 
 	# 2. Set strict permissions
+	# IMPORTANT: We must secure /root itself, or Dropbear will reject the keys
+	chmod 0700 $(TARGET_DIR)/root
 	chmod 0700 $(TARGET_DIR)/root/.ssh
-	#chmod 0700 $(TARGET_DIR)/etc/dropbear
 
 	# 3. Install binaries and scripts
-	# Added 'finder-app/' prefix to match where they are located in your A3 repo
 	$(INSTALL) -m 0755 $(@D)/finder-app/writer $(TARGET_DIR)/usr/bin/
 	$(INSTALL) -m 0755 $(@D)/finder-app/finder.sh $(TARGET_DIR)/usr/bin/
 	$(INSTALL) -m 0755 $(@D)/finder-app/finder-test.sh $(TARGET_DIR)/usr/bin/
-	
-	# full-test.sh is usually in the root of the A3 repo
 	$(INSTALL) -m 0755 $(@D)/full-test.sh $(TARGET_DIR)/usr/bin/
 
 	# 4. Install configuration files
-	# Added 'finder-app/' prefix here as well
 	$(INSTALL) -m 0644 $(@D)/finder-app/conf/* $(TARGET_DIR)/etc/finder-app/conf/
 
 	# 5. Install autograder test scripts
 	$(INSTALL) -m 0755 $(@D)/assignment-autotest/test/assignment4/* $(TARGET_DIR)/usr/bin/
 
-	# 6. Install SSH KEY from Assignment 4 Repo
+	# 6. Install SSH KEY
 	$(INSTALL) -m 0600 $(AESD_ASSIGNMENTS_PKGDIR)/authorized_keys $(TARGET_DIR)/root/.ssh/authorized_keys
 endef
 $(eval $(generic-package))
