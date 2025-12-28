@@ -15,7 +15,6 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 	# 1. Create necessary directories safely
 	$(INSTALL) -d -m 0755 $(TARGET_DIR)/usr/bin
 	mkdir -p $(TARGET_DIR)/etc/finder-app/conf
-	mkdir -p $(TARGET_DIR)/etc/dropbear
 	mkdir -p $(TARGET_DIR)/root/.ssh
 
 	# 2. Set strict permissions
