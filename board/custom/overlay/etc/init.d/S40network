@@ -1,0 +1,29 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+    echo "Configuring eth0 static IP..."
+    # 1. Set the IP and bring the interface up
+    ifconfig eth0 10.0.2.15 netmask 255.255.255.0 up
+    
+    # 2. Add the gateway so SSH traffic can return to the host
+    route add default gw 10.0.2.2
+    
+    # 3. Ensure Dropbear keys exist (prevents 'FAIL' message)
+    if [ ! -d /etc/dropbear ]; then mkdir -p /etc/dropbear; fi
+    if [ ! -f /etc/dropbear/dropbear_rsa_host_key ]; then
+        echo "Generating SSH keys..."
+        dropbearkey -t rsa -f /etc/dropbear/dropbear_rsa_host_key
+    fi
+    
+    # 4. Start Dropbear
+    echo "Starting SSH server..."
+    /usr/sbin/dropbear -R -p 22
+    ;;
+  stop)
+    killall dropbear
+    ;;
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+esac
