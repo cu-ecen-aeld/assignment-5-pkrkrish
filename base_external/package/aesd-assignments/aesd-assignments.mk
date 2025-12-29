@@ -12,13 +12,12 @@ endef
 
 # TODO add your writer, finder and finder-test utilities/scripts to the installation steps below
 define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
-	# 1. Create necessary directories safely
+	# 1. Create directories
 	$(INSTALL) -d -m 0755 $(TARGET_DIR)/usr/bin
 	mkdir -p $(TARGET_DIR)/etc/finder-app/conf
 	mkdir -p $(TARGET_DIR)/root/.ssh
 
-	# 2. Set strict permissions
-	# IMPORTANT: We must secure /root itself, or Dropbear will reject the keys
+	# 2. Set strict permissions (The critical fix)
 	chmod 0700 $(TARGET_DIR)/root
 	chmod 0700 $(TARGET_DIR)/root/.ssh
 
@@ -34,7 +33,7 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 	# 5. Install autograder test scripts
 	$(INSTALL) -m 0755 $(@D)/assignment-autotest/test/assignment4/* $(TARGET_DIR)/usr/bin/
 
-	# 6. Install SSH KEY
+	# 6. Install SSH KEY (Verify this filename matches exactly in your repo)
 	$(INSTALL) -m 0600 $(AESD_ASSIGNMENTS_PKGDIR)/authorized_keys $(TARGET_DIR)/root/.ssh/authorized_keys
 endef
 $(eval $(generic-package))
