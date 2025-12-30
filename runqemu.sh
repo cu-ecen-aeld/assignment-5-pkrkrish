@@ -8,7 +8,7 @@ qemu-system-aarch64 \
     -cpu cortex-a53 -nographic -smp 1 \
     -kernel buildroot/output/images/Image \
     -append "rootwait root=/dev/vda rw console=ttyAMA0 ip=10.0.2.15::10.0.2.2:255.255.255.0" \
-    -netdev user,id=vnet0,hostfwd=tcp::10022-:22 \
+    -netdev user,id=vnet0,hostfwd=tcp::10022-:22,hostfwd=tcp::9000-:9000 \
     -device virtio-net-device,netdev=vnet0 \
     -drive file=buildroot/output/images/rootfs.ext4,if=none,format=raw,id=hd0 \
     -device virtio-blk-device,drive=hd0 \
