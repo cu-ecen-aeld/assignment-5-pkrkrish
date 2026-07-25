@@ -1,0 +1,32 @@
+#!/bin/sh
+
+case "$1" in
+  start)
+    echo "[lddmodules] Loading scull..."
+    [ -x /usr/sbin/scull_load ] && /usr/sbin/scull_load
+
+    echo "[lddmodules] Loading faulty..."
+    [ -x /usr/sbin/module_load ] && /usr/sbin/module_load faulty
+
+    echo "[lddmodules] Loading hello..."
+    modprobe hello 2>/dev/null
+    ;;
+
+  stop)
+    echo "[lddmodules] Unloading hello..."
+    rmmod hello 2>/dev/null
+
+    echo "[lddmodules] Unloading faulty..."
+    [ -x /usr/sbin/module_unload ] && /usr/sbin/module_unload faulty
+
+    echo "[lddmodules] Unloading scull..."
+    [ -x /usr/sbin/scull_unload ] && /usr/sbin/scull_unload
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
