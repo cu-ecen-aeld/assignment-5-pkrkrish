@@ -1,0 +1,5 @@
+config BR2_PACKAGE_LDD
+    bool "ldd modules"
+    depends on BR2_LINUX_KERNEL
+    help
+      Build misc-modules and scull from your ldd3 fork.

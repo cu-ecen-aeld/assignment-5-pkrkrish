@@ -1,3 +1,6 @@
 menu "AESD customizations"
   source "../base_external/package/aesd-assignments/Config.in"
 endmenu
+menu "LDD customizations"
+    source "../base_external/package/ldd/Config.in"
+endmenu
